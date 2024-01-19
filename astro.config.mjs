@@ -1,16 +1,16 @@
 import { defineConfig } from 'astro/config';
-import markdownIntegration from '@astropub/md'
-
+import markdownIntegration from '@astropub/md';
 import tailwind from "@astrojs/tailwind";
+
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    markdownIntegration(),
-    tailwind()
-  ],
+  integrations: [markdownIntegration(), tailwind()],
   markdown: {
     remarkPlugins: [],
     rehypePlugins: []
-  }
+  },
+  output: "server",
+  adapter: vercel()
 });
