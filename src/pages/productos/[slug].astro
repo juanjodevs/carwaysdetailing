@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { Markdown } from '@astropub/md'
+
+export async function getStaticPaths() {
+    const products = await fetch(`${import.meta.env.STRAPI_URL}/api/products`).then((res) => res.json())
+
+    return products.data.map((product) => ({
+        params: { slug: product.attributes.slug }
+    }))
+}
+
+const { slug } = Astro.params;
+const {data: { attributes: product }} = await fetch(`${import.meta.env.STRAPI_URL}/api/products/${slug}`).then((res) => res.json())
+---
+<Layout title={product.name}>
+    <main>
+        <h1 class="text-2xl">{product.name} - {product.price}€</h1>
+        <div><Markdown of={product.description} /></div>
+    </main>
+</Layout>
