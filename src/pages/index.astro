@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from '../layouts/Layout.astro'
 
 const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
