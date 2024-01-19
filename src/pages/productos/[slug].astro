@@ -13,11 +13,21 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const {data: { attributes: product }} = await fetch(`${import.meta.env.STRAPI_URL}/api/products/find-by-slug/${slug}`).then((res) => res.json())
+const {data: { attributes: product }} = await fetch(`${import.meta.env.STRAPI_URL}/api/products/find-by-slug/${slug}?populate=*`).then((res) => res.json())
+const {images: {data: images}} = product
 ---
 <Layout title={product.name}>
     <main>
         <h1 class="text-2xl">{product.name} - {product.price}€</h1>
         <div><Markdown of={product.description} /></div>
+        <div class="flex">
+            {
+                images.map((image) => (
+                    <div>
+                        <img src={`${import.meta.env.STRAPI_URL}${image.attributes.url}`} height="200" width="200"/>
+                    </div>
+                ))
+            }
+        </div>
     </main>
 </Layout>
