@@ -1,16 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro'
 
-const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json());
+const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
 ---
 
 <Layout title="Probando Astro">
   <main class="flex justify-center">
     <div class="flex flex-col basis-1/2 justify-center">
-      <p class="text-center">Probando Astro</p>
+      <p class="text-center">{content.header}</p>
     </div>
     <div class="basis-1/2">
-      <img src={`${import.meta.env.STRAPI_URL}${content.BackgroundImage.data.attributes.url}`}/>
+      <img src={`${import.meta.env.STRAPI_URL}${content.headerimage.data.attributes.url}`}/>
     </div>
   </main>
 </Layout>
