@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const {data: { attributes: product }} = await fetch(`${import.meta.env.STRAPI_URL}/api/products/${slug}`).then((res) => res.json())
+const {data: { attributes: product }} = await fetch(`${import.meta.env.STRAPI_URL}/api/products/find-by-slug/${slug}`).then((res) => res.json())
 ---
 <Layout title={product.name}>
     <main>
