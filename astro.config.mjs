@@ -12,10 +12,5 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [],
     rehypePlugins: []
-  },
-  vite: {
-    define: {
-      'process.env.STRAPI_URL': JSON.stringify(process.env.STRAPI_URL)
-    }
   }
 });
