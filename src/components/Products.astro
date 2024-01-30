@@ -11,7 +11,7 @@ const {data: products} = await fetch(`${import.meta.env.STRAPI_URL}/api/products
             products.map((product) => (
                 <a href="#" class="flex flex-col gap-5 md:basis-1/4">
                     <div class="flex justify-center bg-slate-800 hover:bg-slate-500 p-5 rounded-md border-4 border-white">
-                        <Image height="192" width="192" class="h-24 md:h-48" src={`${import.meta.env.STRAPI_URL}${product.attributes.images.data[0].attributes.url}`} alt={`${product.attributes.name}`}/>
+                        <Image height="192" width="192" class="h-48" src={`${import.meta.env.STRAPI_URL}${product.attributes.images.data[0].attributes.url}`} alt={`${product.attributes.name}`}/>
                         </div>
                     <div class="text-center">{product.attributes.name}</div>
                 </a>
