@@ -14,6 +14,9 @@ dependencies:
   '@astropub/md':
     specifier: ^0.4.0
     version: 0.4.0(@astrojs/markdown-remark@4.1.0)
+  '@fontsource-variable/montserrat':
+    specifier: ^5.0.17
+    version: 5.0.17
   astro:
     specifier: ^4.2.1
     version: 4.2.1
@@ -561,6 +564,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@fontsource-variable/montserrat@5.0.17:
+    resolution: {integrity: sha512-kRPFY+sLUPE4fGTkuHu6phebYTwizsbGVIvqYa2vysRLPKUxwoiy1lb9Z4Qul8qoVspXnl0b9zA5LSn0scD9vA==}
+    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}

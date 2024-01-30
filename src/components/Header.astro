@@ -1,0 +1,106 @@
+---
+const MENU = [
+    {
+        label: 'Inicio',
+        href: '/#'
+    },
+    {
+        label: 'Productos',
+        href: '/#productos'
+    },
+    {
+        label: 'YouTube',
+        href: '/#youtube'
+    },
+    {
+        label: 'Nosotros',
+        href: '/#nosotros'
+    },
+]
+import { Image } from 'astro:assets'
+import Logo from '@images/carways_detailing_logo.png'
+---
+<nav id="nav-container" class="z-10">
+    <div class="flex flex-wrap items-center justify-between mx-auto p-4 md:bg-transparent">
+        <a href="/#" class="flex items-center">
+            <Image src={Logo} alt="logo" height="40" class="bg-white rounded-xl px-5 py-2"/>
+        </a>
+        <button id="toggle-button" data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-default" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto md:border-none" id="navbar-default">
+        <ul class="font-medium uppercase flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0">
+            {
+                MENU.map(({label, href}) => (
+                    <li>
+                        <a href={href} class="block py-2 pl-3 pr-4text-white rounded md:hover:text-cyan-800">{label}</a>
+                    </li>
+                ))
+            }
+        </ul>
+        </div>
+    </div>
+</nav>
+<style>
+    @media (max-width: 768px) {
+        #navbar-default {
+            animation: growDown 500ms;
+            transform-origin: top center;
+        }   
+    }
+
+    #nav-container.sticky {
+        animation: growDown 500ms;
+        transform-origin: top center;
+    }
+
+    @keyframes growDown {
+        0% {
+            transform: scaleY(0)
+        }
+        80% {
+            transform: scaleY(1.1)
+        }
+        100% {
+            transform: scaleY(1)
+        }
+    }
+</style>
+<script>
+    const navcontainer = document.getElementById('nav-container')
+    const navcontact = document.getElementById('nav-contact')
+    const navbar = document.getElementById('navbar-default')
+    const button = document.getElementById('toggle-button')
+    const links = document.querySelectorAll('#navbar-default a')
+
+    function toggleMenu(){
+        navbar.classList.toggle('hidden')    
+    }
+
+    button.addEventListener('click', function(){
+            toggleMenu()
+    })
+
+    links.forEach((link) => {
+        link.addEventListener('click', function(){
+            toggleMenu()
+        })
+    })
+
+    /*window.addEventListener('scroll', function(e){
+        // Needs different scrollY points because of an infinte loop
+        if(window.scrollY > 100){
+            navcontainer.classList.add('top-0', 'sticky')
+            navcontact.classList.add('hidden')
+            navcontact.classList.remove('md:flex', 'md:flex-row')
+        }
+        if(window.scrollY < 80){
+            navcontainer.classList.remove('top-0', 'sticky')
+            navcontact.classList.add('hidden')
+            navcontact.classList.add('md:flex', 'md:flex-row')
+        }
+    })*/
+</script>

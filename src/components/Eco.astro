@@ -1,0 +1,51 @@
+---
+import { Markdown } from '@astropub/md'
+
+import WaterIcon from '@icons/eco_water.astro?raw'
+import CarWash from '@icons/eco_car_wash.astro?raw'
+import HandWash from '@icons/eco_hand_wash.astro?raw'
+
+const CARDS = [
+    {
+        title: 'Carways Detailing',
+        icon: WaterIcon,
+        quantity: 3
+    },
+    {
+        title: 'Autolavado',
+        icon: CarWash,
+        quantity: 120
+    },
+    {
+        title: 'Lavado a mano',
+        icon: HandWash,
+        quantity: 180
+    }
+]
+
+const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
+---
+<div class="flex flex-col m-5">
+    <div class="text-center text-3xl font-bold mb-5">{content.eco_title}</div>
+    <div class="eco_description text-center mb-5"><Markdown of={content.eco_description} /></div>
+    <div class="flex flex-col gap-5 justify-between pt-5 md:flex-row">
+        {
+            CARDS.map((card) => (
+                <div class="basis-1/3 border-b border-slate-500 border-4 p-5 bg-slate-200 text-black rounded-xl">
+                    <div class="text-center text-2xl mb-5 font-bold">{card.title}</div>
+                    <div class="flex justify-center text-slate-800"><Fragment set:html={card.icon} /></div>
+                    <div>
+                        <p class="text-center text-4xl mt-5 font-bold">{card.quantity}</p>
+                        <p class="text-center text-xl">Litros</p>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</div>
+
+<style>
+    :global(.eco_description > p) {
+        margin: 10px 0;
+    }
+</style>

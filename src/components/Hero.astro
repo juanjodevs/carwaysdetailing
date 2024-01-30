@@ -1,0 +1,25 @@
+---
+const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
+const headerimage = `${import.meta.env.STRAPI_URL}${content.header_image.data.attributes.url}`
+---
+<div class="relative flex flex-col md:justify-center bg-no-repeat bg-center bg-gradient-radial from-cyan-600 via-black to-black">
+  <div class="drops"></div>
+  <div class="flex flex-col p-5 gap-5 md:flex-row md:gap-2">
+    <div class=" text-7xl font-bold md:basis-1/2 md:flex-col md:text-8xl">
+      <img class="z-10 object-contain" src={headerimage} alt="car example" />
+    </div>
+    <div class="md:basis-1/2 md:flex md:flex-col justify-center px-5 md:px-10">
+      <div class="self-center md:max-w-md text-center mb-10 md:text-left ">{content.header_description}</div>
+      <iframe class="border-4 border-white rounded-3xl mx-auto w-full md:h-64" src="https://www.youtube.com/embed/UsZumVvL4OQ?si=g6pOyAhQl9TTZk6M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<style>
+  .drops {
+    position: absolute;
+    background: url('/meteor.svg');
+    height: 100%;
+    width: 100%;
+  }
+</style>
