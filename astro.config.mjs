@@ -17,5 +17,8 @@ export default defineConfig({
     }
   },
   output: "server",
-  adapter: vercel()
+  adapter: vercel(),
+  image:{
+    domains: ['strapi.juanjodevs.com']
+  }
 });
