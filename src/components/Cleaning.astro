@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import { Markdown } from '@astropub/md'
 
 const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
@@ -13,9 +14,15 @@ const cleaning3 = `${import.meta.env.STRAPI_URL}${content.cleaning3.data.attribu
     </div>    
     <div class="md:basis-1/2">
         <div class="relative">
-            <div><img src={cleaning1} class="rounded-tr-3xl md:rounded-3xl" alt="Cleaning 1" /></div>
-            <div class="absolute h-24 w-24 -top-5 left-10 md:h-48 md:w-48 md:-top-14 md:-left-10 md:block md:overflow-hidden"><img src={cleaning2} class="rounded-full object-fit border-4 border-white" alt="Cleaning 2" /></div>
-            <div class="hidden md:block h-24 md:h-40 absolute -rotate-12 -right-10 -bottom-5"><img src={cleaning3} class="h-full rounded-xl border-4 border-white" alt="Cleaning 3" /></div>
+            <div>
+                <Image width="580" height="400" src={cleaning1} class="rounded-tr-3xl md:rounded-3xl" alt="Cleaning 1" />
+            </div>
+            <div class="absolute h-24 w-24 -top-5 left-10 md:h-48 md:w-48 md:-top-14 md:-left-10 md:block md:overflow-hidden">
+                <Image width="192" height="192" src={cleaning2} class="rounded-full object-fit border-4 border-white" alt="Cleaning 2" />
+            </div>
+            <div class="hidden md:block h-24 md:h-40 absolute -rotate-12 -right-10 -bottom-5">
+                <Image width="306" height="214" src={cleaning3} class="h-full rounded-xl border-4 border-white" alt="Cleaning 3" />
+            </div>
         </div>
     </div>    
 </div>
