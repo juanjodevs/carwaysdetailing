@@ -4,8 +4,7 @@ import YoutubeEmbed from "./ui/youtube_embed.astro"
 const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
 const headerimage = `${import.meta.env.STRAPI_URL}${content.header_image.data.attributes.url}`
 ---
-<div class="relative flex flex-col md:justify-center bg-no-repeat bg-center bg-gradient-radial from-cyan-600 via-black to-black">
-  <div class="drops"></div>
+<div class="relative flex flex-col md:justify-center bg-no-repeat bg-center bg-gradient-radial from-slate-300 via-black to-black">
   <div class="flex flex-col p-5 gap-5 md:flex-row md:gap-2">
     <div class=" text-7xl font-bold md:basis-1/2 md:flex-col md:text-8xl">
       <Image height="615" width="500" class="object-contain" src={headerimage} alt="car example" />
@@ -16,12 +15,3 @@ const headerimage = `${import.meta.env.STRAPI_URL}${content.header_image.data.at
     </div>
   </div>
 </div>
-
-<style>
-  .drops {
-    position: absolute;
-    background: url('/meteor.svg');
-    height: 100%;
-    width: 100%;
-  }
-</style>
