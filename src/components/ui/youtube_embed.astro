@@ -5,6 +5,7 @@ let srcdoc = `<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}
 ---
 <iframe
   class="w-full aspect-video rounded-xl border-4 border-white"
+  title={title}
   src={`https://www.youtube.com/embed/${videoCode}`}
   srcdoc={srcdoc}
   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
