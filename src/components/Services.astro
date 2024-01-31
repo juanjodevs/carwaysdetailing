@@ -41,7 +41,7 @@ const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}
                 <div class="border-4 border-slate-500 rounded-xl">
                     <div><Image class="rounded-t-xl border-b-4 border-slate-500" src={images[service.image]()} alt={service.title} /></div>
                     <div class="text-center py-5 bg-white font-bold text-slate-800 border-b-4 border-slate-500">{service.title}</div>
-                    <div class="p-5 bg-white text-slate-800">{service.description}</div>
+                    <div class="p-5 bg-white text-slate-800 rounded-b-lg">{service.description}</div>
                 </div>
             ))
         }
