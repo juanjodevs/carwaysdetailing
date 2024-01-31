@@ -34,7 +34,7 @@ const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}
 ---
 <div class="bg-cover rounded-xl mt-10 mx-5 p-5" style={`background-image: linear-gradient(rgba(0,0,0, 0.8), rgba(0,0,0, 0.6)), url(${optimizedWhyBg.src})`}>
     <h2 class="text-center text-3xl md:text-6xl p-5 font-bold">{content.services_title}</h2>
-    <Markdown of={content.services_description} />
+    <div class="services_description"><Markdown of={content.services_description} /></div>
     <div class="grid md:grid-cols-4 gap-10 mt-10">
         {
             SERVICES.map((service) => (
@@ -47,3 +47,9 @@ const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}
         }
     </div>
 </div>
+
+<style>
+    :global(.services_description > p) {
+        margin: 10px 0;
+    }
+</style>

@@ -13,7 +13,7 @@ const MENU = [
     },
     {
         label: 'YouTube',
-        href: '/#youtube'
+        href: '/youtube'
     },
     {
         label: 'Nosotros',
@@ -37,7 +37,7 @@ const MENU = [
             {
                 MENU.map(({label, href}) => (
                     <li>
-                        <a href={href} class="block py-2 pl-3 pr-4text-white rounded md:hover:text-cyan-800">{label}</a>
+                        <a href={href} class="block py-2 pl-3 pr-4 text-white rounded hover:text-slate-500">{label}</a>
                     </li>
                 ))
             }

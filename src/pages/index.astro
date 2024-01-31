@@ -1,20 +1,18 @@
 ---
-export const prerender = true;
+export const prerender = true
 
 import Layout from '../layouts/Layout.astro'
-import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro'
 import Cleaning from '../components/Cleaning.astro'
-import Products from '../components/Products.astro'
-import Eco from '../components/Eco.astro';
-import Services from '@components/Services.astro';
-import Map from '@components/Map.astro';
+import ProductsShowcase from '../components/ProductsShowcase.astro'
+import Eco from '../components/Eco.astro'
+import Services from '@components/Services.astro'
+import Map from '@components/Map.astro'
 ---
 
 <Layout title="Carways Detailing">
-  <Header />
   <Hero />
-  <Products />
+  <ProductsShowcase />
   <Cleaning />
   <Eco />
   <Services />
