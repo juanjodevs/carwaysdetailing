@@ -1,6 +1,10 @@
 ---
-import { Image } from 'astro:assets'
+import { Image, getImage } from 'astro:assets'
 import { Markdown } from '@astropub/md'
+
+import WhyBg from '@images/why_bg.jpg'
+
+const optimizedWhyBg = await getImage({src: WhyBg, format: 'webp'})
 
 const images = import.meta.glob('@images/services*')
 
@@ -28,7 +32,7 @@ const SERVICES = [
 ]
 const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
 ---
-<div class="bg-cover rounded-xl mt-10 mx-5 p-5" style="background-image: linear-gradient(rgba(0,0,0, 0.8), rgba(0,0,0, 0.6)), url(/why_bg.jpg)">
+<div class="bg-cover rounded-xl mt-10 mx-5 p-5" style={`background-image: linear-gradient(rgba(0,0,0, 0.8), rgba(0,0,0, 0.6)), url(${optimizedWhyBg.src})`}>
     <h2 class="text-center text-3xl md:text-6xl p-5 font-bold">{content.services_title}</h2>
     <Markdown of={content.services_description} />
     <div class="grid md:grid-cols-4 gap-10 mt-10">
