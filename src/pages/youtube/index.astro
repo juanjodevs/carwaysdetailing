@@ -3,19 +3,18 @@ export const prerender = true
 
 import { Markdown } from '@astropub/md'
 import { Image } from 'astro:assets'
-import Layout from '../../layouts/Layout.astro'
+import Layout from '@layouts/Layout.astro'
 
 import YouTubeHeader from '@images/youtube-header.jpeg'
-import YoutubeIcon from '../../components/icons/youtube.astro'
+import YoutubeIcon from '@components/icons/youtube.astro'
 
 const {data: youtubelists} = await fetch(`${import.meta.env.STRAPI_URL}/api/youtube-lists?populate=*`).then((res) => res.json())
-console.log(youtubelists[0].attributes.preview)
 ---
-<Layout title="Nuestros productos">
+<Layout title="YouTube">
     <div>
         <a href="https://www.youtube.com/@carwaysdetailing" target="_blank"><Image src={YouTubeHeader} alt="YouTube channel" /></a>
     </div>
-    <p class="text-3xl md:text-5xl text-center my-10">Listas de reproducción</p>
+    <p class="text-3xl md:text-5xl text-center my-10 font-bold">Listas de reproducción</p>
     <div class="flex flex-col gap-10">
         {
             youtubelists.map((ytlist, i) => (

@@ -1,0 +1,72 @@
+---
+export const prerender = true
+
+import { Markdown } from '@astropub/md'
+import Layout from '@layouts/Layout.astro'
+
+const {data: content} = await fetch(`${import.meta.env.STRAPI_URL}/api/about-us?populate=*`).then((res) => res.json())
+const video = `${import.meta.env.STRAPI_URL}${content.attributes.video.data.attributes.url}`
+const videopreview = `${import.meta.env.STRAPI_URL}${content.attributes.videoPreview.data.attributes.url}`
+const WHY_BOXES  = [
+    {
+        title: 'Calidad',
+        text: 'Siempre trabajamos con las mejores marcas, Meguiars, Poor Boys, Auto Finesse o Scholl Concepts entre otras.',
+    },
+    {
+        title: 'Trabajamos a éxito',
+        text: 'Pagas cuando recoges el coche, cualquier cosa que no estés satisfecho se soluciona antes de retirar el coche.',
+    },
+    {
+        title: 'Servicio 5 estrellas',
+        text: 'Consulta en Google las reseñas que el grupo Carways tiene de sus clientes satisfechos, que mejor garantía.',
+    },
+    {
+        title: 'Coche sustitución',
+        text: 'Estate tranquilo, durante el tiempo que tu coche este con nosotros, te dejamos coche de cortesía.',
+    },
+    {
+        title: 'Servicio 365/24',
+        text: 'Te ofrecemos un servicio de asesoramiento de por vida, para que cuides de tu coche de la mejor manera.',
+    },
+    {
+        title: 'Informe',
+        text: 'Te entregamos un informe del estado de la pintura de tu coche, con las micras de todas las piezas del vehículo.',
+    },
+]
+---
+<Layout title="Nosotros">
+    <main class="px-5">
+        <p class="text-3xl md:text-5xl text-center my-10 font-bold">{content.attributes.title}</p>
+        <div class="aboutus_background">
+            <Markdown of={content.attributes.background} />
+        </div>
+        <p class="text-2xl font-bold mt-10">Nuestras instalaciones</p>
+        <div class="mb-10 mt-5 flex justify-center md:px-28">
+            <video class="rounded-xl border-4 border-white" width="100%" controls poster={videopreview}>
+                <source src={video} type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <p class="text-2xl font-bold my-10">Por qué elegir Carways Detailing Barcelona</p>
+        <div class="grid grid-cols-3 gap-5">
+            {
+                WHY_BOXES.map((box, i) => (
+                    <div class={`flex flex-col border-4 border-white ${i%2 === 0 ? 'bg-slate-800 text-white' : 'bg-white text-black'} rounded-xl`}>
+                        <div class={`font-bold rounded-t-lg p-2 text-center ${i%2 === 0 ? 'bg-white text-black' : 'bg-slate-800 text-white'}`}>{box.title}</div>
+                        <div class="p-5">{box.text}</div>
+                    </div>
+                ))
+            }
+        </div>
+    </main>
+</Layout>
+
+<style>
+    :global(.aboutus_background > p) {
+        margin: 10px 0;
+    }
+    :global(.aboutus_background > h2) {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+</style>
