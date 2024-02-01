@@ -1,0 +1,26 @@
+---
+export const prerender = true
+
+import { getFees, getFeeTags } from 'utils.js'
+import { Markdown } from '@astropub/md'
+import Layout from '@layouts/Layout.astro'
+
+// const {data: feeTags} = await fetch(`${import.meta.env.STRAPI_URL}/api/fee-tags?populate=*`).then((res) => res.json())
+const fees = await getFees()
+const feeTags = await getFeeTags()
+---
+<Layout title="Nosotros">
+    <main class="px-5">
+        Prueba
+    </main>
+</Layout>
+
+<style>
+    :global(.aboutus_background > p) {
+        margin: 10px 0;
+    }
+    :global(.aboutus_background > h2) {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+</style>

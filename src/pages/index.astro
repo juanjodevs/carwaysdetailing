@@ -1,6 +1,10 @@
 ---
 export const prerender = true
 
+import { getLandingData } from 'utils'
+
+console.log(getLandingData())
+
 import Layout from '../layouts/Layout.astro'
 import Hero from '../components/Hero.astro'
 import Cleaning from '../components/Cleaning.astro'
