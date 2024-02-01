@@ -2,13 +2,14 @@
 export const prerender = true
 
 import { Image } from 'astro:assets'
-import { getFees, getFeeTags } from 'utils.js'
+import { getFees, getFeeTags, getFeesPdf } from 'utils.js'
 import { Markdown } from '@astropub/md'
 import Layout from '@layouts/Layout.astro'
+import PdfLogo from '@images/logo-pdf.jpg'
 
-// const {data: feeTags} = await fetch(`${import.meta.env.STRAPI_URL}/api/fee-tags?populate=*`).then((res) => res.json())
 const feeTags = await getFeeTags()
 const fees = await getFees()
+const feesPdf = await getFeesPdf()
 ---
 <Layout title="Carways Detailing - Tarifas">
     <main class="px-5">
@@ -42,6 +43,10 @@ const fees = await getFees()
                 </>
             ))
         }
+        <h2 class="text-2xl font-bold mb-10">Descárgate nuestras tarifas</h2>
+        <a class="flex justify-start" href={feesPdf} target="_blank">
+            <Image class="max-h-24 max-w-24 object-contain" src={PdfLogo} alt="Pdf logo"/>
+        </a>
     </main>
 </Layout>
 

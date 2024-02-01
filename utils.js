@@ -88,3 +88,8 @@ export const getFees = async () => {
         }
     })
 }
+
+export const getFeesPdf = async () => {
+    const {data: {attributes: feespdf}} = await fetch(`${import.meta.env.STRAPI_URL}/api/fees-pdf?populate=*`).then((res) => res.json())
+    return generateApiUrl(feespdf.file.data.attributes.url)
+}
