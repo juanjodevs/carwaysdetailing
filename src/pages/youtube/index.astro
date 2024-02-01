@@ -4,32 +4,33 @@ export const prerender = true
 import { Markdown } from '@astropub/md'
 import { Image } from 'astro:assets'
 import Layout from '@layouts/Layout.astro'
+import { getYouTubeListsData } from 'utils'
 
 import YouTubeHeader from '@images/youtube-header.jpeg'
 import YoutubeIcon from '@components/icons/youtube.astro'
 
-const {data: youtubelists} = await fetch(`${import.meta.env.STRAPI_URL}/api/youtube-lists?populate=*`).then((res) => res.json())
+const youtubelists = await getYouTubeListsData()
 ---
-<Layout title="YouTube">
-    <div>
+<Layout title="Carways Detailing - YouTube">
+    <p class="text-3xl md:text-5xl text-center my-10 font-bold">Listas de reproducción</p>
+    <div class="mb-10">
         <a href="https://www.youtube.com/@carwaysdetailing" target="_blank"><Image src={YouTubeHeader} alt="YouTube channel" /></a>
     </div>
-    <p class="text-3xl md:text-5xl text-center my-10 font-bold">Listas de reproducción</p>
     <div class="flex flex-col gap-10">
         {
             youtubelists.map((ytlist, i) => (
                 <div class={`flex flex-col gap-5 ${i%2===0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                     <div class="md:basis-1/2 justify-center flex flex-col">
-                        <a href={ytlist.attributes.link} class="flex justify-center px-5" target="_blank">
-                            <Image class="rounded-xl border-4 border-white" height="500" width="500" src={`${import.meta.env.STRAPI_URL}${ytlist.attributes.preview.data.attributes.url}`} alt={ytlist.attributes.title} />
+                        <a href={ytlist.link} class="flex justify-center px-5" target="_blank">
+                            <Image class="rounded-xl border-4 border-white" height="500" width="500" src={ytlist.preview} alt={ytlist.title} />
                         </a>
                         <div class="flex justify-center mt-5">
-                            <a href={ytlist.attributes.link} target="_blank" class="flex flex-row bg-[#ff0000] py-2 px-5 rounded-xl border-2 border-white gap-2"><YoutubeIcon/> Ver en YouTube</a>
+                            <a href={ytlist.link} target="_blank" class="flex flex-row bg-[#ff0000] py-2 px-5 rounded-xl border-2 border-white gap-2"><YoutubeIcon/> Ver en YouTube</a>
                         </div>
                     </div>
                     <div class="md:basis-1/2 flex flex-col gap-5">
-                        <div class="px-5 text-center text-2xl bg-slate-800 py-5 md:rounded-md">{ytlist.attributes.title}</div>
-                        <div class="video_descriptio px-5"><Markdown of={ytlist.attributes.description} /></div>
+                        <div class="px-5 text-center text-2xl bg-slate-800 py-5 md:rounded-md">{ytlist.title}</div>
+                        <div class="video_descriptio px-5"><Markdown of={ytlist.description} /></div>
                     </div>
                 </div>
             ))

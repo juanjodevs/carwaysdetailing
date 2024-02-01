@@ -1,22 +1,22 @@
 ---
 import Link from '@ui/link.astro'
 import { Image } from 'astro:assets'
-const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
-const {data: products} = await fetch(`${import.meta.env.STRAPI_URL}/api/products?populate=*`).then((res) => res.json())
+
+const { productsTitle, productsCTA, products } = Astro.props
 ---
 <div class="m-5 md:mt-32rounded-3xl">
-    <h2 class="text-center text-3xl md:text-6xl text-wrap font-bold">{content.products_title}</h2>
+    <h2 class="text-center text-3xl md:text-6xl text-wrap font-bold">{productsTitle}</h2>
     <div class="flex flex-col md:flex-row md:justify-between mt-10 gap-10">
         {
             products.map((product, i) => (
                 <a href="#" class="flex flex-col gap-5 md:basis-1/4">
                     <div class="flex justify-center bg-slate-800 hover:bg-slate-500 p-5 rounded-md border-4 border-white">
-                        <Image height="192" width="192" class="h-48 object-contain" src={`${import.meta.env.STRAPI_URL}${product.attributes.images.data[0].attributes.url}`} alt={`Producto ${i}`}/>
+                        <Image height="192" width="192" class="h-48 object-contain" src={product.images[0]} alt={`Producto ${i}`}/>
                         </div>
-                    <div class="text-center">{product.attributes.name}</div>
+                    <div class="text-center">{product.name}</div>
                 </a>
             ))
         }
     </div>
-    <div class="flex justify-center mt-10"><Link href="/#">{content.products_cta}</Link></div>
+    <div class="flex justify-center mt-10"><Link href="/#">{productsCTA}</Link></div>
 </div>

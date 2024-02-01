@@ -23,11 +23,11 @@ const CARDS = [
     }
 ]
 
-const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
+const { ecoTitle, ecoDescription } = Astro.props
 ---
 <div class="flex flex-col m-5">
-    <div class="text-center text-3xl font-bold mb-5">{content.eco_title}</div>
-    <div class="eco_description text-center mb-5"><Markdown of={content.eco_description} /></div>
+    <div class="text-center text-3xl font-bold mb-5">{ecoTitle}</div>
+    <div class="eco_description text-center mb-5"><Markdown of={ecoDescription} /></div>
     <div class="flex flex-col gap-5 justify-between pt-5 md:flex-row">
         {
             CARDS.map((card) => (

@@ -1,26 +1,53 @@
 ---
 export const prerender = true
 
+import { Image } from 'astro:assets'
 import { getFees, getFeeTags } from 'utils.js'
 import { Markdown } from '@astropub/md'
 import Layout from '@layouts/Layout.astro'
 
 // const {data: feeTags} = await fetch(`${import.meta.env.STRAPI_URL}/api/fee-tags?populate=*`).then((res) => res.json())
-const fees = await getFees()
 const feeTags = await getFeeTags()
+const fees = await getFees()
 ---
-<Layout title="Nosotros">
+<Layout title="Carways Detailing - Tarifas">
     <main class="px-5">
-        Prueba
+        <p class="text-3xl md:text-5xl text-center my-10 font-bold">Tarifas</p>
+        {
+            feeTags.map((feeTag) => (
+                <>
+                    <h2 class="text-2xl font-bold mb-10">{feeTag.title}</h2>
+                    <div class="flex justify-center max-h-[80px] md:max-h-[251px] ">
+                        <Image class="object-cover rounded-xl" height="564" width="1024" src={feeTag.image} alt={feeTag.title}/>
+                    </div>
+                    <div class="grid grid-cols-1 gap-10 md:grid-cols-3 my-10 md:gap-5">
+                        {
+                            fees.filter((fee) => fee.tag === feeTag.tag).map((fee) => (
+                                <div class="flex  flex-col bg-white text-slate-800 rounded-xl border-4 border-slate-800 p-5">
+                                    <div class="text-center font-bold text-2xl bg-slate-800 text-white p-5">{fee.title}</div>
+                                    <div class="fee_card_description"><Markdown of={fee.description} /></div>
+                                    <div class="mt-auto text-center font-bold text-xl">Desde {fee.price}€ + IVA</div>
+                                    {
+                                        fee.observation && (
+                                            <div class="text-sm text-center mt-5">{fee.observation}</div>
+                                        )
+                                    }
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div class="mb-10 fee_tag_observation">
+                        <Markdown of={feeTag.observation} />
+                    </div>
+                </>
+            ))
+        }
     </main>
 </Layout>
 
 <style>
-    :global(.aboutus_background > p) {
-        margin: 10px 0;
-    }
-    :global(.aboutus_background > h2) {
-        font-size: 1.5rem;
-        line-height: 2rem;
+    :global(.fee_card_description > ul > li, .fee_tag_observation > ul > li) {
+        margin: 20px 0;
+        list-style: inside;
     }
 </style>

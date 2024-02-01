@@ -2,9 +2,8 @@
 import { Image } from 'astro:assets'
 
 import YoutubeEmbed from './ui/youtube_embed.astro'
-import { getLandingData } from 'utils'
-const landingData = await getLandingData()
-const headerImage = `${import.meta.env.STRAPI_URL}${landingData.headerImage}`
+
+const { headerImage, headerDescription } = Astro.props
 ---
 <div class="relative flex flex-col md:justify-center bg-no-repeat bg-center bg-gradient-radial md:from-slate-300 md:via-black md:to-black">
   <div class="flex flex-col p-5 gap-5 md:flex-row md:gap-2">
@@ -12,7 +11,7 @@ const headerImage = `${import.meta.env.STRAPI_URL}${landingData.headerImage}`
       <Image height="615" width="500" class="object-contain" src={headerImage} alt="car example" loading="eager" />
     </div>
     <div class="md:basis-1/2 md:flex md:flex-col justify-center px-5 md:px-10 z-10">
-      <div class="self-center md:max-w-md text-center mb-10 md:text-left ">{landingData.headerDescription}</div>
+      <div class="self-center md:max-w-md text-center mb-10 md:text-left ">{headerDescription}</div>
       <YoutubeEmbed videoCode="5LAxEIeYs5Y" title="Carways Detailing"/>
     </div>
   </div>
