@@ -20,7 +20,7 @@ const products = await getProducts()
                     <div class="flex flex-col md:flex-row gap-5 bg-slate-800 p-10 rounded-xl">
                         <div class="md:basis-1/2">
                             <Carousel images={product.images} alt={product} />
-                            <div class="flex flex-col gap-5 md:flex-row justify-between mt-5 mx-5">
+                            <div class="flex flex-col gap-5 md:flex-row justify-between mt-10 mx-5">
                                 <div class="text-2xl text-center">{product.price}€</div>
                                 <div class="flex justify-center"><Link href="#">Añadir al carrito</Link></div>
                             </div>

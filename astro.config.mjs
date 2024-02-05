@@ -13,7 +13,8 @@ export default defineConfig({
   },
   vite: {
     define: {
-      'process.env.STRAPI_URL': JSON.stringify(process.env.STRAPI_URL)
+      'process.env.STRAPI_URL': JSON.stringify(process.env.STRAPI_URL),
+      'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY)
     }
   },
   output: "server",
