@@ -16,26 +16,13 @@ const { images, alt } = Astro.props
 </div>
 
 <script>
-    function disableScroll() {
-        const scrollTop = document.documentElement.scrollTop
-        const scrollLeft = document.documentElement.scrollLeft
-
-        window.onscroll = function () {
-            window.scrollTo(scrollLeft, scrollTop);
-        };
-    }
-
-    function enableScroll() {
-        window.onscroll = function () { };
-    }
-
     class Swipper {
         constructor(element, leftCallback, rightCallback){
             this.startX = 0
             this.endX = 0
 
             element.addEventListener('touchstart', (e) => {
-                disableScroll()
+                document.body.style.overflowY = 'hidden'
                 this.startX = e.touches[0].screenX
                 this.endX = e.touches[0].screenX
             })
@@ -45,7 +32,7 @@ const { images, alt } = Astro.props
             })
 
             element.addEventListener('touchend', (e) => {
-                enableScroll()
+                document.body.style.overflowY = 'scroll'
                 callbackHanlder()
             })
             
