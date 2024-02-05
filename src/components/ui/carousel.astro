@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+
 const { images, alt } = Astro.props
 ---
 <div class="slider relative bg-white p-5 rounded-xl grid items-center h-[450px] overflow-hidden">
@@ -10,15 +11,45 @@ const { images, alt } = Astro.props
             </div>
         ))
     }
-    <div class="prev absolute cursor-pointer left-5 text-white z-10 bg-slate-800 h-10 w-10 pl-3 pt-1 text-2xl rounded-full">{'<'}</div>
-    <div class="next absolute cursor-pointer right-5 text-white z-10 bg-slate-800 h-10 w-10 pl-3 pt-1 text-2xl rounded-full">{'>'}</div>
+    <div class="prev absolute cursor-pointer left-5 text-white z-10 bg-slate-800 h-10 w-10 pl-3 pt-1 text-2xl rounded-full font-bold">{'<'}</div>
+    <div class="next absolute cursor-pointer right-5 text-white z-10 bg-slate-800 h-10 w-10 pl-3 pt-1 text-2xl rounded-full font-bold">{'>'}</div>
 </div>
 
 <script>
+    class Swipper {
+        constructor(element, leftCallback, rightCallback){
+            this.startX = 0
+            this.endX = 0
+
+            element.addEventListener('touchstart', (e) => {
+                this.startX = e.touches[0].screenX
+                this.endX = e.touches[0].screenX
+            })
+
+            element.addEventListener('touchmove', (e) => {
+                this.endX = e.touches[0].screenX
+            })
+
+            element.addEventListener('touchend', (e) => {
+                callbackHanlder()
+            })
+            
+            const callbackHanlder = () => {
+                if(this.startX !== this.endX){
+                    if(this.startX > this.endX){
+                        leftCallback()
+                    }else{
+                        rightCallback()
+                    }
+                }
+            }
+        }
+    }
+
     const sliders = document.querySelectorAll('.slider')
     
     sliders.forEach((slider) => {
-        const slides = slider.querySelectorAll('.slide')        
+        const slides = slider.querySelectorAll('.slide')           
 
         slides.forEach((slide, i) => {
             slide.style.transform = `translateX(${i * 100}%)`
@@ -51,6 +82,9 @@ const { images, alt } = Astro.props
                 slide.style.transform = `translateX(${100 * (i - currentSlide)}%)`
             });
         }
+
+        const swiper = new Swipper(slider, () => changeImage('next'), () => changeImage('prev'))
+
         // add event listener and next slide functionality
         nextButton.addEventListener('click', () => {
             changeImage('next')
