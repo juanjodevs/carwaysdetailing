@@ -12,6 +12,7 @@ export const getProducts = async () => {
             price: product.attributes.price,
             slug: product.attributes.slug,
             description: product.attributes.description,
+            youtubeVideoId: product.attributes.youtubeVideoId,
             images: product.attributes.images?.data.map((image) => generateApiUrl(image.attributes.url))
         }
     })

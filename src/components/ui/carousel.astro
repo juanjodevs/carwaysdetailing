@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets'
+const { images, alt } = Astro.props
+---
+<div class="slider relative bg-white p-5 rounded-xl grid items-center h-[450px] overflow-hidden">
+    {
+        images.map((img, i) => (
+            <div class="hidden slide absolute transition-all duration-700">
+                <Image class="object-contain max-h-[200px] md:max-h-[400px]" src={img} width="600" height="600" alt={`${alt} - ${i}`} />
+            </div>
+        ))
+    }
+    <div class="prev absolute cursor-pointer left-5 text-white z-10 bg-slate-800 h-10 w-10 pl-3 pt-1 text-2xl rounded-full">{'<'}</div>
+    <div class="next absolute cursor-pointer right-5 text-white z-10 bg-slate-800 h-10 w-10 pl-3 pt-1 text-2xl rounded-full">{'>'}</div>
+</div>
+
+<script>
+    const sliders = document.querySelectorAll('.slider')
+    
+    sliders.forEach((slider) => {
+        const slides = slider.querySelectorAll('.slide')        
+
+        slides.forEach((slide, i) => {
+            slide.style.transform = `translateX(${i * 100}%)`
+            slide.classList.remove('hidden')
+        })
+
+        // current slide counter
+        let currentSlide = 0;
+
+        // select next slide button
+        const nextButton = slider.querySelector('.next');
+        const prevButton = slider.querySelector('.prev');
+
+        const changeImage = (direction) => {
+            if(direction === 'next'){
+                if(currentSlide+1 === slides.length){
+                    currentSlide = 0
+                }else{
+                    currentSlide++
+                }
+            }else{
+                if(currentSlide-1 < 0){
+                    currentSlide = slides.length-1
+                }else{
+                    currentSlide--
+                }
+            }
+
+            slides.forEach((slide, i) => {
+                slide.style.transform = `translateX(${100 * (i - currentSlide)}%)`
+            });
+        }
+        // add event listener and next slide functionality
+        nextButton.addEventListener('click', () => {
+            changeImage('next')
+        });
+
+        prevButton.addEventListener('click', () => {
+            changeImage('prev')
+        })
+    })    
+</script>

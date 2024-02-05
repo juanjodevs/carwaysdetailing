@@ -8,8 +8,8 @@ const landingData = await getLandingData()
 import Layout from '@layouts/Layout.astro'
 import Hero from '@components/Hero.astro'
 import ProductsShowcase from '@components/ProductsShowcase.astro'
-import Cleaning from '@components/Cleaning.astro'
 import Eco from '@components/Eco.astro'
+import Cleaning from '@components/Cleaning.astro'
 import Services from '@components/Services.astro'
 import Map from '@components/Map.astro'
 ---
@@ -24,16 +24,16 @@ import Map from '@components/Map.astro'
     productsCTA={landingData.productsCTA}
     products={landingData.products}
   />
+  <Eco
+    ecoTitle={landingData.ecoTitle}
+    ecoDescription={landingData.ecoDescription}
+  />
   <Cleaning
     cleaningTitle={landingData.cleaningTitle}
     cleaningDescription={landingData.cleaningDescription}
     cleaningImage1={landingData.cleaningImage1}
     cleaningImage2={landingData.cleaningImage2}
     cleaningImage3={landingData.cleaningImage3}
-  />
-  <Eco
-    ecoTitle={landingData.ecoTitle}
-    ecoDescription={landingData.ecoDescription}
   />
   <Services
     servicesTitle={landingData.servicesTitle}
