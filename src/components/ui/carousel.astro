@@ -22,7 +22,7 @@ const { images, alt } = Astro.props
             this.endX = 0
 
             element.addEventListener('touchstart', (e) => {
-                document.body.style.overflowY = 'hidden'
+                document.body.style.overflow = 'hidden'
                 this.startX = e.touches[0].screenX
                 this.endX = e.touches[0].screenX
             })
@@ -32,8 +32,8 @@ const { images, alt } = Astro.props
             })
 
             element.addEventListener('touchend', (e) => {
-                document.body.style.overflowY = 'scroll'
                 callbackHanlder()
+                document.body.style.overflow = 'scroll'
             })
             
             const callbackHanlder = () => {
