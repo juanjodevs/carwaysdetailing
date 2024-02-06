@@ -2,47 +2,20 @@
 import { Image, getImage } from 'astro:assets'
 import { Markdown } from '@astropub/md'
 
-import WhyBg from '@images/why_bg.jpg'
-
-const optimizedWhyBg = await getImage({src: WhyBg, format: 'webp'})
-
-const images = import.meta.glob('@images/services*')
-
-const SERVICES = [
-    {
-        image: '/src/components/images/services1.jpeg',
-        title: 'Detallado interior y Coating',
-        description: 'El detallado o limpieza interior consta de la limpieza, desinfección, restaurado e hidratado de todos los materiales que conforman el interior del habitáculo del vehículo.'
-    },
-    {
-        image: '/src/components/images/services2.jpeg',
-        title: 'Pulida de carrocería y Coating',
-        description: 'La pintura esta expuesta a polvo, al sol, a roces, al lavado regular, a la lluvia, entre otras cosas, todo esto ocasiona que la pintura se vaya matizando y perdiendo brillo.'
-    },
-    {
-        image: '/src/components/images/services3.jpeg',
-        title: 'Pulida de fatos y barnizado',
-        description: 'En la restauración de faros lijamos la superficie externa del faro hasta eliminar rayadas ocasionadas y el plástico en mal estado para luego pulir y sellar con barniz.'
-    },
-    {
-        image: '/src/components/images/services4.jpeg',
-        title: 'Selladores y ceras carnauba',
-        description: 'Los encerados o selladores de carnauba son una buena manera de obtener un acabado y brillo profundo excelentes de la carrocería del vehículo así como protección UV.'
-    }
-]
-const { servicesTitle, servicesDescription } = Astro.props
+const { servicesTitle, servicesDescription, servicesBackground, services } = Astro.props
+const optimizedBg = await getImage({src: servicesBackground, format: 'webp', width: 1024, height: 768})
 ---
-<div class="bg-cover rounded-xl mt-10 mx-5 p-5" style={`background-image: linear-gradient(rgba(0,0,0, 0.8), rgba(0,0,0, 0.6)), url(${optimizedWhyBg.src})`}>
+<div class="bg-cover rounded-xl mt-10 mx-5 p-5" style={`background-image: linear-gradient(rgba(0,0,0, 0.8), rgba(0,0,0, 0.6)), url(${optimizedBg.src})`}>
     <h2 class="text-center text-3xl md:text-4xl p-5 font-bold">{servicesTitle}</h2>
     <div class="services_description"><Markdown of={servicesDescription} /></div>
     <div class="grid md:grid-cols-4 gap-10 mt-10">
         {
-            SERVICES.map((service) => (
-                <div class="border-4 border-slate-500 rounded-xl">
-                    <div><Image class="rounded-t-xl border-b-4 border-slate-500" src={images[service.image]()} alt={service.title} /></div>
+            services.map((service) => (
+                <a href={`/detailing/${service.slug}`} class="border-4 border-slate-500 rounded-xl bg-white">
+                    <Image width="300" height={225} class="rounded-t-lg border-b-4 border-slate-500" src={service.thumbnail} alt={service.title} />
                     <div class="text-center py-5 bg-white font-bold text-slate-800 border-b-4 border-slate-500">{service.title}</div>
-                    <div class="p-5 bg-white text-slate-800 rounded-b-lg">{service.description}</div>
-                </div>
+                    <div class="p-5 text-slate-800 rounded-b-lg">{service.description}</div>
+                </a>
             ))
         }
     </div>

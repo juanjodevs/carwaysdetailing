@@ -38,6 +38,13 @@ import Map from '@components/Map.astro'
   <Services
     servicesTitle={landingData.servicesTitle}
     servicesDescription={landingData.servicesDescription}
+    servicesBackground={landingData.servicesBackground}
+    services={landingData.services}
   />
-  <Map />
+  <Map
+    mobile={landingData.mobile}
+    email={landingData.email}
+    address={landingData.address}
+    schedule={landingData.schedule}
+  />
 </Layout>

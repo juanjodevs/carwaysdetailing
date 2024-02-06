@@ -1,14 +1,17 @@
+---
+import { Markdown } from '@astropub/md'
+const { mobile, email, address, schedule } = Astro.props
+---
 <div class="mt-10 px-5">
   <h2 class="text-center text-3xl font-bold">¿Dónde estamos?</h2>
   <div class="flex flex-col md:flex-row mt-10 gap-5">
     <div class="basis-1/2 flex flex-col gap-2">
       <div class="flex flex-col gap-2 md:basis-1/2">
-        <div><span class="font-bold text-xl">Móvil y whatsapp</span>: 684 46 88 13</div>
-        <div><span class="font-bold text-xl">Email</span>: info@carwaysmobility.es</div>
-        <div><span class="font-bold text-xl">Dirección</span>: Ctra. Barcelona 29, 08840, Viladecans (Barcelona)</div>
+        <div><span class="font-bold text-xl">Móvil y whatsapp</span>: {mobile}</div>
+        <div><span class="font-bold text-xl">Email</span>: {email}</div>
+        <div><span class="font-bold text-xl">Dirección</span>: {address}</div>
         <div><span class="font-bold text-xl">Horario:</span></div>
-        <div>De Lunes a Viernes: de 9.00 a 19.00</div>
-        <div>Sábados: de 10.00 a 13.00</div>
+        <Markdown of={schedule} />
       </div>
     </div>
     <div class="basis-1/2">

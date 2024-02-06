@@ -1,0 +1,32 @@
+---
+export const prerender = true;
+
+import Layout from '@layouts/Layout.astro'
+import { Markdown } from '@astropub/md'
+
+export async function getStaticPaths() {
+    const { data: services } = await fetch(`${import.meta.env.STRAPI_URL}/api/services`).then((res) => res.json())
+
+    return services.map((service) => ({
+        params: { slug: service.attributes.slug }
+    }))
+}
+
+const { slug } = Astro.params;
+const {data: { attributes: service }} = await fetch(`${import.meta.env.STRAPI_URL}/api/services/find-by-slug/${slug}?populate=*`).then((res) => res.json())
+---
+<Layout title={`Carways Detailing - ${service.title}`}>
+    <main class="service">
+        <h2 class="text-center text-4xl font-bold my-10">{service.title}</h2>
+        <Markdown of={service.content} />
+    </main>
+</Layout>
+
+<style>
+    :global(.service > h3) {
+        font-size: 1.5rem;
+    }
+    :global(.service > p) {
+        margin: 10px 0;
+    }
+</style>

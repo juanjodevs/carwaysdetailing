@@ -20,7 +20,6 @@ export const getProducts = async () => {
 
 export const getLandingData = async () => {
     const {data: {attributes: landing}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
-    
     return {
         headerImage: generateApiUrl(landing.header_image.data.attributes.url),
         headerDescription: landing.header_description,
@@ -35,7 +34,13 @@ export const getLandingData = async () => {
         ecoTitle: landing.eco_title,
         ecoDescription: landing.eco_description,
         servicesTitle: landing.services_title,
-        servicesDescription: landing.services_description
+        servicesDescription: landing.services_description,
+        servicesBackground: generateApiUrl(landing.services_background.data.attributes.url),
+        services: await getServices(),
+        mobile: landing.mobile,
+        email: landing.email,
+        address: landing.address,
+        schedule: landing.schedule
     }
 }
 
@@ -93,4 +98,18 @@ export const getFees = async () => {
 export const getFeesPdf = async () => {
     const {data: {attributes: feespdf}} = await fetch(`${import.meta.env.STRAPI_URL}/api/fees-pdf?populate=*`).then((res) => res.json())
     return generateApiUrl(feespdf.file.data.attributes.url)
+}
+
+export const getServices = async () => {
+    const {data: services} = await fetch(`${import.meta.env.STRAPI_URL}/api/services?populate=*`).then((res) => res.json())
+    
+    return services.map((service) => {
+        return {
+            title: service.attributes.title,
+            slug: service.attributes.slug,
+            thumbnail: generateApiUrl(service.attributes.thumbnail.data.attributes.url),
+            description: service.attributes.description,
+            content: service.attributes.content
+        }
+    })
 }
