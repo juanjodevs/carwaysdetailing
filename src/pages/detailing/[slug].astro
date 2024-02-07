@@ -16,7 +16,7 @@ const { slug } = Astro.params;
 const {data: { attributes: service }} = await fetch(`${import.meta.env.STRAPI_URL}/api/services/find-by-slug/${slug}?populate=*`).then((res) => res.json())
 ---
 <Layout title={`Carways Detailing - ${service.title}`}>
-    <main class="service">
+    <main class="service px-5">
         <h2 class="text-center text-4xl font-bold my-10">{service.title}</h2>
         <Markdown of={service.content} />
     </main>
