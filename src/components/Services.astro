@@ -8,11 +8,12 @@ const optimizedBg = await getImage({src: servicesBackground, format: 'webp', wid
 <div class="bg-cover rounded-xl mt-10 mx-5 p-5" style={`background-image: linear-gradient(rgba(0,0,0, 0.8), rgba(0,0,0, 0.6)), url(${optimizedBg.src})`}>
     <h2 class="text-center text-3xl md:text-4xl p-5 font-bold">{servicesTitle}</h2>
     <div class="services_description"><Markdown of={servicesDescription} /></div>
-    <div class="grid md:grid-cols-4 gap-10 mt-10">
+    <!-- sm used for tablet -->
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 mt-10">
         {
             services.map((service) => (
                 <a href={`/detailing/${service.slug}`} class="border-4 border-slate-500 rounded-xl bg-white">
-                    <Image width="300" height={225} class="rounded-t-lg border-b-4 border-slate-500" src={service.thumbnail} alt={service.title} />
+                    <div class="flex justify-center"><Image width="300" height={225} class="rounded-t-lg border-b-4 border-slate-500" src={service.thumbnail} alt={service.title} /></div>
                     <div class="text-center py-5 bg-white font-bold text-slate-800 border-b-4 border-slate-500">{service.title}</div>
                     <div class="p-5 text-slate-800 rounded-b-lg">{service.description}</div>
                 </a>
