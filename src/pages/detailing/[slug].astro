@@ -8,12 +8,12 @@ export async function getStaticPaths() {
     const { data: services } = await fetch(`${import.meta.env.STRAPI_URL}/api/services`).then((res) => res.json())
 
     return services.map((service) => ({
-        params: { slug: service.attributes.slug }
+        params: { slug: service.attributes.slug },
+        props: { service: service.attributes }
     }))
 }
 
-const { slug } = Astro.params;
-const {data: { attributes: service }} = await fetch(`${import.meta.env.STRAPI_URL}/api/services/find-by-slug/${slug}?populate=*`).then((res) => res.json())
+const { service } = Astro.props;
 ---
 <Layout title={`Carways Detailing - ${service.title}`}>
     <main class="service px-5">
