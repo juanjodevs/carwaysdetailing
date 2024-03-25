@@ -4,11 +4,11 @@ import { Image } from 'astro:assets'
 const { images, alt } = Astro.props
 ---
 <div class="carousel flex flex-col">
-    <div class="slider relative bg-white p-5 rounded-xl grid items-center h-[450px] overflow-hidden">
+    <div class="slider relative bg-black border-2 border-white p-5 rounded-xl grid items-center h-[450px] overflow-hidden">
         {
             images.map((img, i) => (
                 <div class="hidden slide absolute transition-all duration-700">
-                    <Image class="object-contain max-h-[200px] md:max-h-[400px]" src={img} width="600" height="600" alt={`${alt} - ${i}`} />
+                    <Image class="object-contain max-h-[200px] md:max-h-[400px]" src={img} width="800" height="800" alt={`${alt} - ${i}`} />
                 </div>
             ))
         }

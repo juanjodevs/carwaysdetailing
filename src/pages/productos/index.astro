@@ -4,7 +4,6 @@ export const prerender = true
 import Layout from '@layouts/Layout.astro'
 import { getProducts } from 'utils'
 import YoutubeEmbed from '@components/ui/youtube_embed.astro'
-import Link from '@components/ui/link.astro'
 import Carousel from '@components/ui/carousel.astro'
 import { Markdown } from '@astropub/md'
 
@@ -19,9 +18,8 @@ const products = await getProducts()
                     <div class="flex flex-col md:flex-row gap-5 bg-slate-800 p-10 rounded-xl">
                         <div class="md:basis-1/2">
                             <Carousel images={product.images} alt={product} />
-                            <div class="flex flex-col gap-5 md:flex-row justify-between mt-10 mx-5">
-                                <div class="text-2xl text-center">{product.price}€</div>
-                                <div class="flex justify-center"><Link href="#">Añadir al carrito</Link></div>
+                            <div class="flex flex-col gap-5 md:flex-row justify-end mt-10 mx-5">
+                                <div class="text-2xl text-center">{product.price.toFixed(2)}€</div>
                             </div>
                         </div>
                         <div class="md:basis-1/2">
@@ -41,3 +39,12 @@ const products = await getProducts()
         </div>
     </main>
 </Layout>
+
+<style>
+    :global(.product_description p) {
+        margin: 10px 0;
+    }
+    :global(.product_description li) {
+        margin: 10px 0;
+    }
+</style>
