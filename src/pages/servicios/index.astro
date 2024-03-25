@@ -11,9 +11,9 @@ const feeTags = await getFeeTags()
 const fees = await getFees()
 const feesPdf = await getFeesPdf()
 ---
-<Layout title="Carways Detailing - Tarifas">
+<Layout title="Carways Detailing - Servicios">
     <main class="px-5">
-        <p class="text-3xl md:text-5xl text-center my-10 font-bold">Tarifas</p>
+        <p class="text-3xl md:text-5xl text-center my-10 font-bold">Servicios detailing</p>
         {
             feeTags.map((feeTag) => (
                 <>
@@ -43,7 +43,7 @@ const feesPdf = await getFeesPdf()
                 </>
             ))
         }
-        <h2 class="text-2xl font-bold mb-10">Descárgate nuestras tarifas</h2>
+        <h2 class="text-2xl font-bold mb-10">Descárgate nuestros servicios</h2>
         <a class="flex justify-start" href={feesPdf} target="_blank">
             <Image class="max-h-24 max-w-24 object-contain" src={PdfLogo} alt="Pdf logo"/>
         </a>
