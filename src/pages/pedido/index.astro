@@ -1,0 +1,84 @@
+---
+import formData from 'form-data'
+import Mailgun  from 'mailgun.js'
+const mailgun = new Mailgun(formData)
+
+import Layout from '@layouts/Layout.astro'
+import { getProducts } from 'utils'
+const products = await getProducts()
+
+let sent = false
+if (Astro.request.method === 'POST') {
+  try {
+    const data = await Astro.request.formData()
+    const name = data.get('name')
+    const phone = data.get('phone')
+    let message = `
+        <div>
+            <div>Nombre: ${name}</div>
+            <div>Teléfono: ${phone}</div>
+            <div>${products.find((p) => p.id === 1).name}: ${data.get('product-1')}</div>
+            <div>${products.find((p) => p.id === 2).name}: ${data.get('product-2')}</div>
+            <div>${products.find((p) => p.id === 3).name}: ${data.get('product-3')}</div>
+            <div>${products.find((p) => p.id === 4).name}: ${data.get('product-4')}</div>
+            <div>${products.find((p) => p.id === 5).name}: ${data.get('product-5')}</div>
+        </div>
+    `
+    sent = true
+    
+    const mg = mailgun.client({username: 'api', key: import.meta.env.MAILGUN_API_KEY});
+
+    mg.messages.create('sandbox1b1e1ff293a8424cbc0c209e2287cfc8.mailgun.org', {
+        from: "Pedido <testing@sandbox1b1e1ff293a8424cbc0c209e2287cfc8.mailgun.org>",
+        to: ["juanjodevs@gmail.com"],
+        subject: "Pedido",
+        html: message
+    })
+    .then((msg) => console.log(msg))
+    .catch((err) => console.log(err))
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+}
+---
+<Layout title="Carways Detailing - Servicios">
+    <main class="px-5">
+        <p class="text-3xl md:text-5xl text-center my-10 font-bold">Realizar pedido</p>
+        <div class="bg-slate-800 p-10 rounded-xl">
+            {
+                !sent ?
+                (
+                    <form method="POST">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="basis-1/2">
+                                <label for="name">Nombre completo</label>
+                                <input class="rounded w-full text-black py-1 px-2" name="name" type="text" required />
+                            </div>
+                            <div class="basis-1/2">
+                                <label for="phone">Teléfono</label>
+                                <input class="rounded w-full text-black py-1 px-2" name="phone" type="tel" required />
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-5 mt-10">
+                            {
+                                products.map((product) => (
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>{product.name} - ({product.price.toFixed(2)}€)</div>
+                                        <input name={`product-${product.id}`} class="text-black max-h-8 max-w-12 p-1 rounded" type="number" value="0" pattern="{0-9}" />
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        <button class="border-2 border-slate-200 rounded-xl px-5 py-2 bg-white text-black font-bold hover:bg-slate-200 mt-10">Realizar pedido</button>
+                    </form>      
+                )
+                :
+                (
+                    <div>Gracias</div>
+                )
+            }
+        </div>        
+    </main>
+</Layout>

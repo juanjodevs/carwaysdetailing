@@ -8,6 +8,7 @@ export const getProducts = async () => {
 
     return products.map((product) => {
         return {
+            id: product.id,
             name: product.attributes.name,
             price: product.attributes.price,
             slug: product.attributes.slug,
