@@ -13,10 +13,12 @@ if (Astro.request.method === 'POST') {
     const data = await Astro.request.formData()
     const name = data.get('name')
     const phone = data.get('phone')
+    const email = data.get('email')
     let message = `
         <div>
             <div>Nombre: ${name}</div>
             <div>Teléfono: ${phone}</div>
+            <div>Email: ${email}</div>
             <div>${products.find((p) => p.id === 1).name}: ${data.get('product-1')}</div>
             <div>${products.find((p) => p.id === 2).name}: ${data.get('product-2')}</div>
             <div>${products.find((p) => p.id === 3).name}: ${data.get('product-3')}</div>
@@ -51,20 +53,24 @@ if (Astro.request.method === 'POST') {
                 !sent ?
                 (
                     <form method="POST">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div class="basis-1/2">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <div class="basis-1/3">
                                 <label for="name">Nombre completo</label>
                                 <input class="rounded w-full text-black py-1 px-2" name="name" type="text" required />
                             </div>
-                            <div class="basis-1/2">
+                            <div class="basis-1/3">
                                 <label for="phone">Teléfono</label>
                                 <input class="rounded w-full text-black py-1 px-2" name="phone" type="tel" required />
+                            </div>
+                            <div class="basis-1/3">
+                                <label for="phone">Correo electrónico</label>
+                                <input class="rounded w-full text-black py-1 px-2" name="email" type="email" required />
                             </div>
                         </div>
                         <div class="flex flex-col gap-5 mt-10">
                             {
                                 products.map((product) => (
-                                    <div class="grid grid-cols-2 gap-2">
+                                    <div class="flex flex-row md:grid md:grid-cols-2 gap-2">
                                         <div>{product.name} - ({product.price.toFixed(2)}€)</div>
                                         <input name={`product-${product.id}`} class="text-black max-h-8 max-w-12 p-1 rounded" type="number" value="0" pattern="{0-9}" />
                                     </div>
