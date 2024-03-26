@@ -31,7 +31,7 @@ const { ecoTitle, ecoDescription } = Astro.props
     <div class="flex flex-col gap-5 justify-between pt-5 md:flex-row">
         {
             CARDS.map((card) => (
-                <div class={`basis-1/3 border-b border-slate-500 border-4 p-5 bg-white rounded-xl ${card.quantity < 5 ? 'text-emerald-500' : 'text-red-500'}`}>
+                <div class={`basis-1/3 border-b border-slate-500 border-4 p-5 bg-white rounded-xl ${card.quantity < 5 ? 'text-emerald-700' : 'text-red-700'}`}>
                     <div class="text-center text-2xl mb-5 font-bold">{card.title}</div>
                     <div class="flex justify-center text-slate-800"><Fragment set:html={card.icon} /></div>
                     <div>

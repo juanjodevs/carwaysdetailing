@@ -11,7 +11,7 @@ const { productsTitle, productsCTA, products } = Astro.props
             products.map((product, i) => (
                 <a href="/productos" class="flex flex-col md:basis-1/4 gap-5">
                     <div class="flex justify-center bg-slate-800 rounded-md border-4 border-white">
-                        <Image height="256" width="256" class="h-48 object-contain m-2" src={product.images[0]} alt={`Producto ${i}`}/>
+                        <Image height="233" width="192" class="h-48 object-contain m-2" src={product.images[0]} alt={`Producto ${i}`}/>
                     </div>
                     <div class="text-center">{product.name}</div>
                 </a>
