@@ -43,8 +43,8 @@ if (Astro.request.method === 'POST') {
   }
 }
 ---
-<Layout title="Carways Detailing - Servicios">
-    <main class="px-5">
+<Layout title="Carways Detailing - Pedidos">
+    <main class="px-5 min-h-[600px]">
         <p class="text-3xl md:text-5xl text-center my-10 font-bold">Realizar pedido</p>
         <div class="bg-slate-800 p-10 rounded-xl">
             {
@@ -76,7 +76,10 @@ if (Astro.request.method === 'POST') {
                 )
                 :
                 (
-                    <div>Gracias</div>
+                    <div class="text-center">
+                        <p>Gracias por contactar con nosotros.</p>
+                        <p>En breve un comercial se podrá en contacto para finalizar el pedido.</p>
+                    </div>
                 )
             }
         </div>        
