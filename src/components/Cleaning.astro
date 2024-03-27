@@ -2,35 +2,53 @@
 import { Image } from 'astro:assets'
 import { Markdown } from '@astropub/md'
 
-const {data: {attributes: content}} = await fetch(`${import.meta.env.STRAPI_URL}/api/landing-page?populate=*`).then((res) => res.json())
-const cleaning1 = `${import.meta.env.STRAPI_URL}${content.cleaning1.data.attributes.url}`
-const cleaning2 = `${import.meta.env.STRAPI_URL}${content.cleaning2.data.attributes.url}`
-const cleaning3 = `${import.meta.env.STRAPI_URL}${content.cleaning3.data.attributes.url}`
-const { cleaningTitle, cleaningDescription, cleaningImage1, cleaningImage2, cleaningImage3 } = Astro.props
+const {
+    cleaningTitle,
+    cleaningDescription,
+    cleaningImage1,
+    cleaningImage2,
+    cleaningImage3,
+    advantage1,
+    advantage2,
+    advantage3
+    } = Astro.props
+
+console.log(advantage1)
 ---
-<div class="flex flex-col m-5 gap-10 md:pb-20 md:flex md:flex-row-reverse md:gap-20 md:mt-20">
-    <div class="md:basis-1/2 md:flex md:flex-col md:justify-center">
-        <h2 class="text-center font-bold text-3xl md:text-4xl">{cleaningTitle}</h2>
-        <div class="cleaning_description mt-5 text-center"><Markdown of={cleaningDescription} /></div>
-    </div>    
-    <div class="md:basis-1/2">
-        <div class="relative flex justify-center">
-            <div>
-                <Image width="580" height="400" src={cleaningImage1} class="rounded-tr-3xl md:rounded-3xl" alt="Cleaning 1" />
-            </div>
-            <!-- Use sm just for the circle on tablet -->
-            <div class="absolute h-24 w-24 -top-5 left-10 sm:h-48 sm:w-48 md:-top-14 md:-left-10 md:block md:overflow-hidden">
-                <Image width="192" height="192" src={cleaningImage2} class="rounded-full object-fit border-4 border-white" alt="Cleaning 2" />
-            </div>
-            <div class="hidden md:block h-24 md:h-40 absolute -rotate-12 -right-10 -bottom-5">
-                <Image width="306" height="214" src={cleaningImage3} class="h-full rounded-xl border-4 border-white" alt="Cleaning 3" />
+<div>
+    <div class="flex flex-col m-5 gap-10 md:pb-20 md:flex md:flex-row-reverse md:gap-20 md:mt-20">
+        <div class="md:basis-1/2 md:flex md:flex-col md:justify-center">
+            <h2 class="text-center font-bold text-3xl md:text-4xl">{cleaningTitle}</h2>
+            <div class="cleaning_description mt-5 text-center"><Markdown of={cleaningDescription} /></div>
+        </div>    
+        <div class="md:basis-1/2">
+            <div class="relative flex justify-center">
+                <div>
+                    <Image width="580" height="400" src={cleaningImage1} class="rounded-tr-3xl md:rounded-3xl" alt="Cleaning 1" />
+                </div>
+                <!-- Use sm just for the circle on tablet -->
+                <div class="absolute h-24 w-24 -top-5 left-10 sm:h-48 sm:w-48 md:-top-14 md:-left-10 md:block md:overflow-hidden">
+                    <Image width="192" height="192" src={cleaningImage2} class="rounded-full object-fit border-4 border-white" alt="Cleaning 2" />
+                </div>
+                <div class="hidden md:block h-24 md:h-40 absolute -rotate-12 -right-10 -bottom-5">
+                    <Image width="306" height="214" src={cleaningImage3} class="h-full rounded-xl border-4 border-white" alt="Cleaning 3" />
+                </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <div class="grid grid-cols-1 gap-5 mx-5 md:grid-cols-3">
+        <div class="advantage border-2 p-2 rounded-lg border-white md:p-5"><Markdown of={advantage1} /></div>
+        <div class="advantage border-2 p-2 rounded-lg border-white md:p-5"><Markdown of={advantage2} /></div>
+        <div class="advantage border-2 p-2 rounded-lg border-white md:p-5"><Markdown of={advantage3} /></div>
+    </div>
 </div>
 
 <style>
     :global(.cleaning_description > p) {
         margin: 10px 0;
+    }
+    :global(.advantage h3) {
+        font-size: 1.5rem;
+        font-weight: 800;
     }
 </style>

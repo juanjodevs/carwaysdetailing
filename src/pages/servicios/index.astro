@@ -6,7 +6,10 @@ import { getFees, getFeeTags, getFeesPdf } from 'utils.js'
 import { Markdown } from '@astropub/md'
 import Layout from '@layouts/Layout.astro'
 import PdfLogo from '@images/logo-pdf.jpg'
+import Map from '@components/Map.astro'
+import { getLandingData } from 'utils'
 
+const landingData = await getLandingData()
 const feeTags = await getFeeTags()
 const fees = await getFees()
 const feesPdf = await getFeesPdf()
@@ -47,6 +50,12 @@ const feesPdf = await getFeesPdf()
         <a class="flex justify-start" href={feesPdf} target="_blank">
             <Image class="max-h-24 max-w-24 object-contain" src={PdfLogo} alt="Pdf logo"/>
         </a>
+        <Map
+            mobile={landingData.mobile}
+            email={landingData.email}
+            address={landingData.address}
+            schedule={landingData.schedule}
+        />
     </main>
 </Layout>
 

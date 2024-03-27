@@ -41,7 +41,10 @@ export const getLandingData = async () => {
         mobile: landing.mobile,
         email: landing.email,
         address: landing.address,
-        schedule: landing.schedule
+        schedule: landing.schedule,
+        advantage1: landing.advantage1,
+        advantage2: landing.advantage2,
+        advantage3: landing.advantage3
     }
 }
 
